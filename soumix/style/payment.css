@@ -1,0 +1,372 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+  color: white;
+
+  background: linear-gradient(
+    to bottom,
+    #3b090c 0%,
+    #260407 45%,
+    #080000 100%
+  );
+}
+
+
+/* =========================
+   HEADER
+   ========================= */
+
+header {
+  height: 94px;
+  border-bottom: 1px solid #491317;
+
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  margin-left: 11%;
+
+  color: #e50914;
+  font-size: 42px;
+  font-weight: bold;
+  letter-spacing: -3px;
+}
+
+
+/* =========================
+   MAIN
+   ========================= */
+
+main {
+  display: flex;
+  justify-content: center;
+
+  padding: 45px 20px 70px;
+}
+
+.payment-box {
+  width: 100%;
+  max-width: 520px;
+}
+
+
+/* =========================
+   TEXT
+   ========================= */
+
+.step {
+  color: #aaa;
+  font-size: 13px;
+  font-weight: bold;
+  letter-spacing: 1px;
+
+  margin-bottom: 10px;
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.subtitle {
+  color: #c8c8c8;
+  font-size: 17px;
+  line-height: 1.5;
+
+  margin-bottom: 30px;
+}
+
+
+/* =========================
+   LABELS
+   ========================= */
+
+label {
+  display: block;
+
+  color: #ddd;
+  font-size: 15px;
+  font-weight: bold;
+
+  margin-bottom: 8px;
+}
+
+
+/* =========================
+   INPUTS
+   ========================= */
+
+input {
+  width: 100%;
+  height: 58px;
+
+  padding: 0 16px;
+
+  background: #191313;
+  color: white;
+
+  border: 1px solid #666;
+  border-radius: 5px;
+
+  font-size: 17px;
+
+  outline: none;
+
+  transition: border 0.2s, box-shadow 0.2s;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+input:focus {
+  border-color: white;
+  box-shadow: 0 0 0 1px white;
+}
+
+
+/* =========================
+   CARD NUMBER
+   ========================= */
+
+.input-wrapper {
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.input-wrapper input {
+  padding-right: 65px;
+}
+
+.card-icon {
+  position: absolute;
+
+  right: 15px;
+  top: 50%;
+
+  transform: translateY(-50%);
+
+  width: 38px;
+  height: 26px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #333;
+  border-radius: 4px;
+
+  font-size: 19px;
+
+  transition: 0.2s;
+}
+
+
+/* Visa */
+
+.card-icon.visa {
+  background: white;
+  color: #1434cb;
+
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.card-icon.visa::after {
+  content: "VISA";
+}
+
+
+/* Mastercard */
+
+.card-icon.mastercard {
+  background: white;
+}
+
+.card-icon.mastercard::after {
+  content: "● ●";
+  color: #e50914;
+  font-size: 14px;
+  letter-spacing: -3px;
+}
+
+
+/* Amex */
+
+.card-icon.amex {
+  background: #1976a8;
+  color: white;
+
+  font-size: 9px;
+  font-weight: bold;
+}
+
+.card-icon.amex::after {
+  content: "AMEX";
+}
+
+
+/* =========================
+   ROW
+   ========================= */
+
+.row {
+  display: flex;
+  gap: 14px;
+
+  margin-top: 20px;
+}
+
+.field {
+  flex: 1;
+}
+
+
+/* =========================
+   NAME
+   ========================= */
+
+#cardName {
+  margin-bottom: 4px;
+}
+
+
+/* =========================
+   ERROR
+   ========================= */
+
+.error {
+  min-height: 20px;
+
+  color: #ff6b6b;
+  font-size: 13px;
+
+  margin-top: 5px;
+}
+
+
+/* =========================
+   SECURITY MESSAGE
+   ========================= */
+
+.secure {
+  margin: 20px 0;
+
+  padding: 14px;
+
+  background: rgba(255, 255, 255, 0.05);
+
+  border-radius: 5px;
+
+  color: #aaa;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* =========================
+   BUTTON
+   ========================= */
+
+button {
+  width: 100%;
+  height: 56px;
+
+  border: none;
+  border-radius: 4px;
+
+  background: #e50914;
+  color: white;
+
+  font-size: 19px;
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: background 0.2s;
+}
+
+button:hover {
+  background: #f6121d;
+}
+
+button:active {
+  transform: scale(0.99);
+}
+
+
+/* =========================
+   TABLET
+   ========================= */
+
+@media (max-width: 768px) {
+
+  header {
+    height: 80px;
+  }
+
+  .logo {
+    margin-left: 30px;
+    font-size: 36px;
+  }
+
+  main {
+    padding: 35px 30px 60px;
+  }
+
+  h1 {
+    font-size: 30px;
+  }
+
+}
+
+
+/* =========================
+   PHONE
+   ========================= */
+
+@media (max-width: 480px) {
+
+  header {
+    height: 70px;
+  }
+
+  .logo {
+    margin-left: 20px;
+    font-size: 30px;
+  }
+
+  main {
+    padding: 30px 20px 50px;
+  }
+
+  h1 {
+    font-size: 27px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  input {
+    height: 55px;
+    font-size: 16px;
+  }
+
+  .row {
+    gap: 10px;
+  }
+
+  button {
+    height: 54px;
+  }
+
+}

